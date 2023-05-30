@@ -13,12 +13,17 @@ class ClientController extends Controller
      */
     public function index(): void
     {
-        $this->twig->display("client/index.html.twig");
+        $this->render("client/index");
     }
 
     public function inscription(): void
     {
-        $this->twig->display("client/inscription.html.twig");
+        $this->render("client/inscription");
+    }
+
+    public function connexion(): void
+    {
+        $this->render("client/connexion");
     }
 
 }

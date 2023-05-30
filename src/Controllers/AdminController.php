@@ -11,6 +11,11 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $this->twig->display("admin/index.html.twig");
+        $this->render("admin/index", ["title" => "Admin index"]);
+    }
+
+    public function connexion()
+    {
+        $this->render("admin/connexion", ["title" => "Admin connexion"]);
     }
 }
