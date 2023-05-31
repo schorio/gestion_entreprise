@@ -12,8 +12,7 @@ class PostModel extends Model
     protected int $auteur;
 
     public function __construct(){
-        $class = str_replace(__NAMESPACE__ . "\\", '', __CLASS__) . "s";
-        $this->table = strtolower(str_replace('Model', '', $class));
+        $this->table = "administrateur";
     }
 
     public function __toString()

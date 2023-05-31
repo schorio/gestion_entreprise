@@ -18,19 +18,16 @@ class Connexion extends PDO
     private static $instance;
 
     private const HOST = "localhost";
-    private const USER = "root";
-    private const PASSWORD = "Rhjaforlife123##";
-    private const DBNAME = "poo_db";
 
     /**
      * constructeur
      */
-    public function __construct()
+    public function __construct(string $user, string $password, string $dbname)
     {
-        $dsn = 'mysql:dbname=' . self::DBNAME . ';host=' . self::HOST;
+        $dsn = 'mysql:dbname=' . $dbname . ';host=' . self::HOST;
 
         try {
-            parent::__construct($dsn, self::USER, self::PASSWORD);
+            parent::__construct($dsn, $user, $password);
 
             $this->setAttribute(PDO::MYSQL_ATTR_INIT_COMMAND, 'SET NAMES utf8');
             $this->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
@@ -45,10 +42,10 @@ class Connexion extends PDO
      *
      * @return self
      */
-    public static function getInstance(): self
+    public static function getInstance(string $user, string $password, string $dbname): self
     {
         if(self::$instance === null) {
-            self::$instance = new self();
+            self::$instance = new self($user, $password, $dbname);
         }
         return self::$instance;
     }

@@ -12,6 +12,12 @@ abstract class Model extends Connexion
      *
      * @var string
      */
+
+    protected string $user;
+
+    protected string $pass;
+
+    protected string $dbname;
     protected string $table;
 
     private $connexion;
@@ -24,7 +30,7 @@ abstract class Model extends Connexion
      */
     public function request(string $sql, array $attributs = null)
     {
-        $this->connexion = Connexion::getInstance();
+        $this->connexion = Connexion::getInstance($this->user, $this->pass, $this->dbname);
 
         if($attributs !== null) {
             $query = $this->connexion->prepare($sql);

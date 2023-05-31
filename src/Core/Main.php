@@ -2,7 +2,6 @@
 
 namespace App\Core;
 
-use App\Controllers\ClientController;
 use App\Controllers\ErrorController;
 use App\Controllers\MainController;
 
@@ -29,12 +28,17 @@ class Main
         $uri = parse_url($uri, PHP_URL_PATH);
         $segments = explode('/', $uri);
         array_shift($segments);
-
         // Si l'url contient un premier arguments
         if($segments[0] !== "")
         {
+            $first_arguments = $segments[0];
+            //on cherche si l'argument correspond à un dossier dans le controleurs
+            $directories = ["Admin", "Client"];
+            if(in_array($first_arguments, $directories)){
+                array_shift($segments);
+            }
             // on cherche une controleur qui correspond à l'arguments
-            $controller = "\\App\\Controllers\\" . ucfirst(array_shift($segments)) . "Controller";
+            $controller = "\\App\\Controllers\\". ucfirst($first_arguments) . "\\" . ucfirst(array_shift($segments)) . "Controller";
 
             // si la classe existe
             if(class_exists($controller))
@@ -56,18 +60,26 @@ class Main
                     $controller->error404();
                 }
             }
-            // sinon page introuvable
+            // sinon rechercher dans main controller si la methode existe
             else
             {
-                http_response_code(404);
-                $controller = new ErrorController;
-                $controller->error404();
+                $controller = new MainController;
+                if (method_exists($controller, $first_arguments)) {
+                    $controller->$first_arguments();
+                }
+                // sinon retourner erreur 404 page introuvable  
+                else
+                {
+                    http_response_code(404);
+                    $controller = new ErrorController;
+                    $controller->error404();
+                }
             }
         }
         // sinon c'est l'url de base
         else
         {
-            $controller = new ClientController;
+            $controller = new MainController;
             $controller->index();
         }
     }

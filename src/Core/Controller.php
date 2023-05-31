@@ -31,7 +31,8 @@ abstract class Controller
             array_push($this->data, $_data);
         }
 
-        $this->twig->display($file . ".html.twig", $this->data);
+        $file = $file . ".html.twig";
+        $this->twig->display($file, $this->data);
     }
 
 

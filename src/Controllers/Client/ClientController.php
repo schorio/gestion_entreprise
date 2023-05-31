@@ -1,6 +1,6 @@
 <?php 
 
-namespace App\Controllers;
+namespace App\Controllers\Client;
 
 use App\Core\Controller;
 
@@ -14,16 +14,6 @@ class ClientController extends Controller
     public function index(): void
     {
         $this->render("client/index");
-    }
-
-    public function inscription(): void
-    {
-        $this->render("client/inscription");
-    }
-
-    public function connexion(): void
-    {
-        $this->render("client/connexion");
     }
 
 }
