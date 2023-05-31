@@ -20,4 +20,14 @@ class MainController extends Controller
     {
         $this->render("main/connexion", ["title" => "Page de connexion"]);
     }
+
+    public function apropos(): void
+    {
+        $this->render("main/a-propos", ["title" => "Page à propos"]);
+    }
+
+    public function contact(): void
+    {
+        $this->render("main/contact", ["title" => "Page de contact"]);
+    }
 }
