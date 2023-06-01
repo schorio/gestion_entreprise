@@ -20,7 +20,7 @@ class AdminModel extends Model
      */
     public function __construct(){
         $this->user = "root";
-        $this->pass = "Rhjaforlife123##";
+        $this->pass = "";
         $this->dbname = "ven_sto";
         $this->table = "administrateur";
     }
