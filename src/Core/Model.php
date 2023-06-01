@@ -4,23 +4,41 @@ namespace App\Core;
 
 use App\Core\Connexion;
 
-
+/**
+ * Undocumented class
+ */
 abstract class Model extends Connexion
 {
+    /**
+     * Undocumented variable
+     *
+     * @var string
+     */
+    protected string $user;
+    /**
+     * Undocumented variable
+     *
+     * @var string
+     */
+    protected string $pass;
+    /**
+     * Undocumented variable
+     *
+     * @var string
+     */
+    protected string $dbname;
     /**
      * nom de la table
      *
      * @var string
      */
-
-    protected string $user;
-
-    protected string $pass;
-
-    protected string $dbname;
     protected string $table;
-
-    private $connexion;
+    /**
+     * Undocumented variable
+     *
+     * @var Connexion
+     */
+    private Connexion $connexion;
 
     /**
      * exectution d'une requete
@@ -104,20 +122,13 @@ abstract class Model extends Connexion
             $valeurs );
     }
 
-    public function hydrate(array $donnees)
-    {
-        foreach ($donnees as $key => $value)
-        {
-            // ucfirst : make fist caracter of the string uppercase
-            $setter = 'set'.ucfirst($key);
-
-            if (method_exists($this, $setter))
-            {
-                $this->$setter($value);
-            }
-        }
-        return $this;
-    }
+    /**
+     * fonction qui sert à hydrater un objet
+     *
+     * @param [type] $donnees
+     * @return self
+     */
+    abstract function hydrate($donnees);
 
     public function update(int $id, Model $model)
     {

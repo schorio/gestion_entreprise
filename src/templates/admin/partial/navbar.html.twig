@@ -1,5 +1,9 @@
 <div class="d-flex">
     <h1>Admin navbar</h1>
-    <a href="/admin">Admin</a>
+    {% if not session.admin %}
     <a href="/admin/connexion">Connexion</a>
+    {% else %}
+    <a href="/admin">Admin</a>
+    <a href="/admin/deconnexion">Deconnexion</a>
+    {% endif %}
 </div>

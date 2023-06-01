@@ -26,6 +26,47 @@ class AdminModel extends Model
     }
 
     /**
+     * implementation de la methode abstraite hydrate
+     * @param $donnees
+     * @return self
+     */
+    public function hydrate($donnees): self
+    {
+        foreach ($donnees as $key => $value)
+        {
+            // ucfirst : make fist caracter of the string uppercase
+            $setter = 'set'.ucfirst($key);
+
+            if (method_exists($this, $setter))
+            {
+                $this->$setter($value);
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * fonction qui verifie la connexion
+     * @param string $email
+     * @return mixed
+     */
+    public function findOneByEmail(string $email): mixed
+    {
+        return $this->request("SELECT * FROM ".$this->table." WHERE email LIKE '". $email ."'")->fetch();
+    }
+
+    /**
+     * Creation de la session de l'administrateur
+     */
+    public function setSession()
+    {
+        $_SESSION["admin"] = [
+            "id" => $this->id,
+            "email" => $this->email
+        ];
+    }
+
+    /**
      * Get the value of id
      */ 
     public function getId()

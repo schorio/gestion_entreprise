@@ -10,6 +10,8 @@ use App\Core\Main;
 
 $app = new Main();
 
+session_start();
+
 $app->start();
 
 ?>

@@ -2,4 +2,18 @@
 
 {% block body %}
     <h1>Admin connexion</h1>
+    <fieldset>
+        <legend>Formulaire</legend>
+        {% if session.alert %}
+            <div>
+                {{ session.alert.message }}
+            </div>
+        {% endif %}
+        <form method="post" action="/admin/connexion">
+            <input type="email" name="email" placeholder="email"><br>
+            <input type="password" name="password" placeholder="password"><br>
+            <input type="hidden" name="token" value={{session.token}} >
+            <button type="submit" name="connexion">Se connecter</button>
+        </form>
+    </fieldset>
 {% endblock %}
